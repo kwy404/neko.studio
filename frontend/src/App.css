@@ -1,0 +1,14 @@
+:root{
+    --black: #080609;
+    --blue: #262555;
+    --purple: #6D20C9;
+    --purpleLow: #AB65FF;
+}
+
+body{
+    background: #040404;
+}
+
+* {
+    box-sizing: border-box;
+}
