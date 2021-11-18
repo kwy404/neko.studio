@@ -12,3 +12,18 @@ body{
 * {
     box-sizing: border-box;
 }
+
+@keyframes scaleE {
+    0%{
+        transform: scale(0.9);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.previewFocuskaway{
+    animation: scale 1.3s ease;
+    z-index: 1000;
+    transition: all 0.4s ease;
+}

@@ -37,6 +37,26 @@ class Server {
             animes[`recentes`] = animesRecentes;
             res.send(this.jCrypt(animes));
         });
+        app.get(`/anime/:anime`, async (req, res) => {
+            const animeT = req.params.anime
+            const animes = {}
+            const animeTe = new Anime({
+                API_ANIME,
+                Site
+            });
+            const animeTE = await animeTe.getAnime(animeT);
+            res.send(this.jCrypt(animeTE));
+        });
+        app.get(`/episodio/:episodio`, async (req, res) => {
+            const animeT = req.params.episodio
+            const animes = {}
+            const animeTe = new Anime({
+                API_ANIME,
+                Site
+            });
+            const animeTE = await animeTe.getVideo(animeT);
+            res.send(this.jCrypt(animeTE));
+        });
         app.get(`/anime/photo/:photo`, (req, res) => {
             const decrypt = bCrypt.decrypt(req.params.photo);
             let url = `https://animesonline.cc/wp-content/uploads/`+decrypt.replaceAll(`"`, ``);
