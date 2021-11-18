@@ -17,7 +17,7 @@ const Carrousel = (props) => {
     }
     return <div className="lolomoRow lolomoRow_title_card ltr-0" data-list-context="recentlyAdded">
     <h2 className="rowHeader ltr-0">
-      <a className="rowTitle ltr-0" href="#">
+      <a className="rowTitle ltr-0" href="#"> 
         <div className="row-header-title">{ props.title }</div>
         <div className="aro-row-header more-visible">
           <div className="see-all-link">Ver tudo</div>
