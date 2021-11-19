@@ -1,0 +1,5 @@
+Ideias:
+Sistema de fila => somente se não estiver logado
+Sistema de favoritos => somente se não estiver logado
+
+Mimizar player => Igual YouTube
