@@ -73,19 +73,14 @@ const ItemSlide = (props) => {
                 if(props.animeP.nome != props.anime.nome){
                   const posX = boxRef.current.x - 45
                   const posY = boxRef.current.y - 316
-                  const height = boxRef.current.clientHeight
-                  const width = boxRef.current.clientWidth
+                  const height = document.querySelector('.ratio-16x9').offsetHeight
+                  const width = document.querySelector('.ratio-16x9').offsetWidth
                   const link = props.anime.link
                   const anime = await axios.get(`http://localhost:5000/${link}`)
                   const data = await anime.data
                   const dataCry = JSON.parse(bCrypt.decrypt(data))
-                  props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem,height, width})
+                  props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, height, width})
                 }
-              }
-            }
-            onMouseDown={
-              e => {
-                props.setPreviewAnime({})
               }
             }
             className="boxart-image boxart-image-in-padded-container" src={props.anime.imagem} alt="" />

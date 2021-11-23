@@ -2,14 +2,13 @@ import {useState} from 'react';
 const PreviewModal = (props) => {
     const [scale, setSale] = useState(1);
     const [nome, setNome] = useState(props.anime.nome);
+    console.log(props.anime)
     return (
       <>
         {props.anime && typeof props.anime.dataCry != `undefined` && (
           <div
             style={{
               position: `fixed`,
-              width: props.anime.width+`px`,
-              height: props.anime.height+`px`,
               left: props.anime.posX + `px`,
               top: props.anime.posY + `px`,
               transform: `translateX(0px) translateY(0px) scale(${scale}) translateZ(0px)`,
@@ -20,7 +19,10 @@ const PreviewModal = (props) => {
           >
             <div
               onMouseLeave={() => {
-                setSale(0.89)
+                setSale(0.75)
+                setTimeout(() => {
+                  props.animePreview({})
+                }, 200);
               }}
               role="dialog"
               aria-modal="true"
@@ -28,7 +30,8 @@ const PreviewModal = (props) => {
               className="previewModal--container mini-modal has-smaller-buttons"
               data-uia="preview-modal-container-MINI_MODAL"
               style={{
-                width: "351px",
+                width: props.anime.width+80+`px`,
+                height: props.anime.height + 200 +`px`,
                 top: "243px",
                 left: "-28px",
                 transformOrigin: "center center",
