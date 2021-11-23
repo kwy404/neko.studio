@@ -15,7 +15,7 @@ body{
 
 @keyframes scaleE {
     0%{
-        transform: scale(0.9);
+        transform: scale(0.8);
     }
     100%{
         transform: scale(1);
@@ -23,7 +23,7 @@ body{
 }
 
 .previewFocuskaway{
-    animation: scale 1.3s ease;
+    animation: scaleE 0.6s ease;
     z-index: 1000;
-    transition: all 0.4s ease;
+    transition: all 0.6s ease;
 }

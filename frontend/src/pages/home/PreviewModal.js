@@ -19,10 +19,10 @@ const PreviewModal = (props) => {
           >
             <div
               onMouseLeave={() => {
-                setSale(0.75)
+                setSale(0.8)
                 setTimeout(() => {
                   props.animePreview({})
-                }, 200);
+                }, 600);
               }}
               role="dialog"
               aria-modal="true"

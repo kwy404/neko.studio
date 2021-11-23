@@ -35,7 +35,7 @@ const Carrousel = (props) => {
             <div className="sliderMask showPeek">
               <div className="sliderContent row-with-x-columns" style={{WebkitTransform: '', msTransform: '', transform: ''}}>
                 { animesRecentes.recentes && animesRecentes.recentes.map((anime, index) => (
-                   <ItemSlide 
+                   <ItemSlide
                    setPreviewAnime={props.animePreview}
                    animeP={props.animeP}
                    anime={anime} />
@@ -59,7 +59,11 @@ const Carrousel = (props) => {
 const ItemSlide = (props) => {
   const boxRef = useRef(null);
   return <div
-  className="slider-item slider-item-0">
+  className="slider-item slider-item-0"
+  style={{
+    marginLeft: `${(props.anime == props.animeP ? '100px' : '0px')}`
+  }}
+  >
   <div className="title-card-container ltr-0">
     <div id="title-card-1-0" className="title-card">
       <div className="ptrack-content" data-ui-tracking-context="%7B%22list_id%22:%22eac855f7-d5de-4c25-b464-09619487be28_25837353X35XX1637189231949%22,%22location%22:%22homeScreen%22,%22rank%22:0,%22request_id%22:%2216c13d0e-3f75-43a5-81e9-94a2e977a701-33470907%22,%22row%22:1,%22track_id%22:14170034,%22video_id%22:81161626,%22image_key%22:%22sdp%7C0024dde0-3c02-11ec-a15a-0a11d6d820cb%7Cpt-BR%7C3zg%22,%22supp_video_id%22:1,%22lolomo_id%22:%22eac855f7-d5de-4c25-b464-09619487be28_ROOT%22,%22maturityMisMatchEdgy%22:false,%22maturityMisMatchNonEdgy%22:false,%22appView%22:%22boxArt%22,%22usePresentedEvent%22:true%7D" data-tracking-uuid="5a9ab7fc-e9f9-45d0-bea2-da1275c2f449">
