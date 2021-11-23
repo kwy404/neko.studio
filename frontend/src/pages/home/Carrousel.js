@@ -8,7 +8,7 @@ const Carrousel = (props) => {
     const getAnimes = async () => {
       const anime = await axios.get(`http://localhost:5000/anime`)
       const data = await anime.data
-      setAnimesRecentes(JSON.parse(bCrypt.decrypt(data)));
+      setAnimesRecentes(data);
       setApi(true)
     }
     if(!api){
@@ -82,7 +82,7 @@ const ItemSlide = (props) => {
                   const link = props.anime.link
                   const anime = await axios.get(`http://localhost:5000/${link}`)
                   const data = await anime.data
-                  const dataCry = JSON.parse(bCrypt.decrypt(data))
+                  const dataCry = data
                   props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, height, width})
                 }
               }

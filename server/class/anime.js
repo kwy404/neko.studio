@@ -31,7 +31,7 @@ class Anime {
         return this.animeRecentes;
     }
     async getAnime(animeT){
-        const anime = {temporadas: []}
+        const anime = {temporadas: [], generoAnime: []}
         this.web = await axios.get(this.API+`anime/${animeT}/`);
         this.dataWeb = await this.web.data;
         this.$ = cheerio.load(this.dataWeb);
@@ -66,12 +66,22 @@ class Anime {
         return anime;
     }
     async getVideo(animeT){
-        const video = {video: ``, created: `kaway404`}
-        this.web = await axios.get(this.API+`episodio/${animeT}/`);
-        this.dataWeb = await this.web.data;
-        this.$ = cheerio.load(this.dataWeb);
-        const iframe = this.$(`#dt_contenedor #contenedor #single .content #playex .playex #option-1`).find(`iframe`).attr(`src`)
-        video.video = iframe
+        let video = {}
+        try {
+            this.web = await axios.get(this.API+`episodio/${animeT}/`);
+            this.dataWeb = await this.web.data;
+            this.$ = cheerio.load(this.dataWeb);
+            const iframe = this.$(`#dt_contenedor #contenedor #single .content #playex .playex #option-1`).find(`iframe`).attr(`src`)
+            const iframePlayer = await axios.get(iframe)
+            const array = iframePlayer.data.split(`var VIDEO_CONFIG = `)
+            const config = array[1].split(`</script>`)[0]
+            video = JSON.parse(array[1].split(`</script>`)[0])
+            const qualidades = video.streams.length
+            video = video.streams[qualidades - 1].play_url
+        } catch (error) {
+            console.log(error)
+            video = {'error': 505}
+        }
         return video;
     }
 };

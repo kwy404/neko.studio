@@ -5,6 +5,12 @@ import Animes from './class/anime.js';
 import Anime from './class/anime.js';
 import request from 'request';
 import cors from 'cors';
+import http from 'http';
+import fs from 'fs';
+import util from 'util';
+import stream from 'express-stream';
+import superagent from 'superagent';
+import axios from 'axios';
 
 class Server {
     constructor(object){
@@ -14,7 +20,7 @@ class Server {
     }
     jCrypt(json){
         if(this.Production == 1){
-            return bCrypt.encrypt(json);
+            return json;
         } else{
             return json;
         }
@@ -47,6 +53,7 @@ class Server {
             const animeTE = await animeTe.getAnime(animeT);
             res.send(this.jCrypt(animeTE));
         });
+        
         app.get(`/episodio/:episodio`, async (req, res) => {
             const animeT = req.params.episodio
             const animes = {}
@@ -55,7 +62,7 @@ class Server {
                 Site
             });
             const animeTE = await animeTe.getVideo(animeT);
-            res.send(this.jCrypt(animeTE));
+            res.send({url: animeTE})
         });
         app.get(`/anime/photo/:photo`, (req, res) => {
             const decrypt = bCrypt.decrypt(req.params.photo);
