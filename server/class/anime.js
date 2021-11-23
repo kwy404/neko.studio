@@ -21,8 +21,8 @@ class Anime {
             let background = ``
             if(this.$(anime).attr(`class`) === `poster`){
                 link = this.$(anime).find(`a`).attr(`href`).replace(this.API, ``)
-                const arrayOfImage = this.$(anime).find(`a img`).attr(`src`).replaceAll(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
-                imagem = arrayOfImage[0].replaceAll(`/`, `$`)+`-`+arrayOfImage[1];
+                const arrayOfImage = this.$(anime).find(`a img`).attr(`src`).replace(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
+                imagem = arrayOfImage[0].replace(`/`, `$`)+`-`+arrayOfImage[1];
                 imagem = this.Site+`anime/photo/`+bCrypt.encrypt(imagem);
                 nome = this.$(anime).find(`a img`).attr(`alt`);
                 this.animeRecentes.push({link, imagem, nome, background, created: `kaway404`});

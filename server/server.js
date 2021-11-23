@@ -59,8 +59,8 @@ class Server {
         });
         app.get(`/anime/photo/:photo`, (req, res) => {
             const decrypt = bCrypt.decrypt(req.params.photo);
-            let url = `https://animesonline.cc/wp-content/uploads/`+decrypt.replaceAll(`"`, ``);
-            url = url.replaceAll(`$`, `/`);
+            let url = `https://animesonline.cc/wp-content/uploads/`+decrypt.replace(`"`, ``);
+            url = url.replace(`$`, `/`);
             request({
                 url: url,
                 encoding: null
@@ -74,7 +74,7 @@ class Server {
         });
         app.get(`/anime/background/:photo`, (req, res) => {
             const decrypt = bCrypt.decrypt(req.params.photo);
-            let url = decrypt.replaceAll(`"`, ``);
+            let url = decrypt.replace(`"`, ``);
             url = url.replaceAll(`$`, `/`);
             console.log(url);
             request({
