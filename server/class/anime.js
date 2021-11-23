@@ -31,7 +31,7 @@ class Anime {
         return this.animeRecentes;
     }
     async getAnime(animeT){
-        const anime = {generoAnime: [], episodes: [], nomeAnime: ``}
+        const anime = {temporadas: []}
         this.web = await axios.get(this.API+`anime/${animeT}/`);
         this.dataWeb = await this.web.data;
         this.$ = cheerio.load(this.dataWeb);
@@ -47,14 +47,20 @@ class Anime {
         })
         this.$(`#single .content .tempep #serie_contenido #seasons`).find(`.se-c`).each(async (index, season) => {
             const temporada = this.$(season).find(`.se-q .se-o`).text()
+            anime.temporadas.push({temp: temporada, episodes: []})
             this.$(season).find(`.se-a .episodios`).find(`li`).each(async (i, episode) => {
-                const arrayOfImage =  this.$(episode).find(`.imagen a img`).attr(`src`).replaceAll(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
-                let imagem = arrayOfImage[0].replaceAll(`/`, `$`)+`-`+arrayOfImage[1];
+                const arrayOfImage =  this.$(episode).find(`.imagen a img`).attr(`src`).replace(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
+                let imagem = arrayOfImage[0].replace(`/`, `$`)+`-`+arrayOfImage[1];
                 imagem = this.Site+`anime/photo/`+bCrypt.encrypt(imagem);
                 const ep = this.$(episode).find(`.numerando`).text()
                 const href = this.$(episode).find(`.episodiotitle a`).attr(`href`).replace(`https://animesonline.cc/`, ``)
                 const date = this.$(episode).find(`.episodiotitle .date`).text()
-                anime.episodes.push({temporada, imagem, ep, href, date})
+                const foundTemporada = anime.temporadas.find(e => e.temp == temporada)
+                if(foundTemporada){
+                    const indexTemp = anime.temporadas.indexOf(foundTemporada)
+                    anime.temporadas[indexTemp].episodes.push({temporada, imagem, ep, href, date})
+                }
+                
             })
         })
         return anime;
