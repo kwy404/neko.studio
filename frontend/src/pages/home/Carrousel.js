@@ -1,10 +1,11 @@
 import axios from 'axios';
-import {useState, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import bCrypt from 'json-encrypt';
 
 const Carrousel = (props) => {
     const [animesRecentes, setAnimesRecentes] = useState([]);
     const [api, setApi] = useState(false);
+    const [positionSlider, setPositionSlider] = useState(0);
     const getAnimes = async () => {
       const anime = await axios.get(`http://localhost:5000/anime`)
       const data = await anime.data
@@ -25,39 +26,84 @@ const Carrousel = (props) => {
         </div>
       </a>
     </h2>
-    <div className="rowContainer rowContainer_title_card" id="row-1">
+    <div className="rowContainer rowContainer_title_card"
+    id="row-1">
       <div className="ptrack-container">
-        <div className="rowContent slider-hover-trigger-layer">
+        <div className="rowContent slider-hover-trigger-layer"
+        >
           <div className="slider">
-            <ul className="pagination-indicator">
+          { positionSlider > 0 &&
+          <span 
+          onClick={() => {
+            if(positionSlider > 0){
+              var old = positionSlider
+              old--
+              setPositionSlider(old)
+            }
+          }}
+          class="handle handlePrev active" tabindex="0" role="button" aria-label="Ver títulos anteriores"><b class="indicator-icon icon-leftCaret"></b></span> }
+            {  }
+            {/* <ul className="pagination-indicator">
               <li className="active" />
-            </ul>
+            </ul> */}
             <div className="sliderMask showPeek">
-              <div className="sliderContent row-with-x-columns" style={{WebkitTransform: '', msTransform: '', transform: ''}}>
+              <div 
+              style={{
+                transform: `translateX(${ document.querySelector('.title-card') ? `${((positionSlider) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth).toFixed(0) *  document.querySelector('.title-card').offsetWidth) * -1  + 'px'}` : `0px`})`
+              }}
+              className="sliderContent row-with-x-columns">
                 { animesRecentes.recentes && animesRecentes.recentes.map((anime, index) => (
                    <ItemSlide
                    setPreviewAnime={props.animePreview}
                    animeP={props.animeP}
                    anime={anime} />
                 ))}
-                <div className="slider-item slider-item-">
+                {/* <div className="slider-item slider-item-">
                   <div className="smallTitleCard loadingTitle fullWidth">
                     <div className="ratio-16x9 no-pulsate" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
-            <span className="handle handleNext active" tabIndex={0} role="button" aria-label="Ver mais títulos"><b className="indicator-icon icon-rightCaret" /></span>
+            {  document.querySelector('.title-card') && ( positionSlider + 1 ) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length &&
+            <span 
+            onClick={() => {
+              if(document.querySelector('.title-card')){
+                if((( positionSlider + 1 ) * window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length ){
+                  var old = positionSlider
+                  old++
+                  setPositionSlider(old)
+                } else{
+                  setPositionSlider(0)
+                }
+              }
+                
+            }}
+            className="handle handleNext active" tabIndex={0} role="button" aria-label="Ver mais títulos"><b className="indicator-icon icon-rightCaret" /></span>
+            }
+            
           </div>
         </div>
       </div>
     </div>
+  
   </div>
 }
 
 
 const ItemSlide = (props) => {
   const boxRef = useRef(null);
+  const forceUpdate = useForceUpdate()
+  function useForceUpdate() {
+    const [, forceUpdate] = React.useState();
+  
+    return React.useCallback(() => {
+      forceUpdate(s => !s);
+    }, []);
+  }
+  const onForceUpdate = React.useCallback(() => {
+      forceUpdate()
+    }, [forceUpdate])
   return <div
   className="slider-item slider-item-0"
   style={{
@@ -77,13 +123,12 @@ const ItemSlide = (props) => {
                 if(props.animeP.nome != props.anime.nome){
                   const posX = boxRef.current.x - 45
                   const posY = boxRef.current.y - 316
-                  const height = document.querySelector('.ratio-16x9').offsetHeight
-                  const width = document.querySelector('.ratio-16x9').offsetWidth
                   const link = props.anime.link
                   const anime = await axios.get(`http://localhost:5000/${link}`)
                   const data = await anime.data
                   const dataCry = data
-                  props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, height, width})
+                  props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
+                  onForceUpdate()
                 }
               }
             }
