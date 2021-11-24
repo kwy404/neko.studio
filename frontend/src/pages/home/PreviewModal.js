@@ -17,7 +17,7 @@ const PreviewModal = (props) => {
           >
             <div
               onMouseLeave={() => {
-                setSale(0.88)
+                setSale(0.92)
                 setTimeout(() => {
                   props.animePreview({})
                 }, 600);
@@ -29,12 +29,12 @@ const PreviewModal = (props) => {
               data-uia="preview-modal-container-MINI_MODAL"
               style={{
                 width: document.querySelector('.title-card').offsetWidth +80+`px`,
-                height: document.querySelector('.title-card').offsetHeight + 220 +`px`,
+                height: document.querySelector('.title-card').offsetHeight + 210 +`px`,
                 top: "243px",
                 left: "-28px",
                 transformOrigin: "center center",
                 transform:
-                  "translateX(58px) translateY(0px) scaleX(1) scaleY(1) translateZ(0px)",
+                  "translateX(58px) translateY(-3px) scaleX(1) scaleY(1) translateZ(0px)",
                 zIndex: 3,
                 opacity: 1,
                 boxShadow: "rgba(0, 0, 0, 0.75) 0px 3px 10px",

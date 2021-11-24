@@ -195,7 +195,8 @@ const modalStream = (props) => {
                                   <use filter xlinkHref="#thumb-up-filled" />
                                 </svg>
                               </div>
-                              <span className="match-score">{props.anime.dataCry.more.popularity.toFixed(1)}% relevante</span>
+                              { props.anime.dataCry.more && <span className="match-score">{props.anime.dataCry.more.popularity.toFixed(1)}% relevante</span>}
+                              
                             </div>
                           </span>
                         </div>
@@ -226,7 +227,7 @@ const modalStream = (props) => {
                     className="preview-modal-synopsis previewModal--text"
                     data-uia="preview-modal-synopsis"
                   >
-                    { props.anime.dataCry.more.overview }
+                    { props.anime.dataCry.more &&  props.anime.dataCry.more.overview }
                   </p>
                 </div>
                 <div className="previewModal--detailsMetadata-right">
@@ -235,7 +236,7 @@ const modalStream = (props) => {
                     data-uia="previewModal--tags-genre"
                   >
                     <span className="previewModal--tags-label">Gêneros:</span>
-                    {props.anime.dataCry.more.genres.map((item, i) => (
+                    { props.anime.dataCry.more && props.anime.dataCry.more.genres.map((item, i) => (
                       <span className="tag-item" data-uia="tag-item">
                       <a> {item.name}{(props.anime.dataCry.more.genres[i + 1] ? `,` : ``)} </a>
                       </span>

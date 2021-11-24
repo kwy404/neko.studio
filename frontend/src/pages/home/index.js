@@ -31,6 +31,21 @@ const Home = () => {
             animeP={animePreview}
             title={`Animes recentes`}
             ></Carrousel>
+            <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            title={`Animes recentes`}
+            ></Carrousel>
+            <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            title={`Animes recentes`}
+            ></Carrousel>
+            <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            title={`Animes recentes`}
+            ></Carrousel>
             {animePreview.nome &&
                 <PreviewModal 
                 animePreview={setPreviewAnime}

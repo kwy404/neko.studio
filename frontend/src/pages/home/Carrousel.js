@@ -35,6 +35,7 @@ const Carrousel = (props) => {
           { positionSlider > 0 &&
           <span 
           onClick={() => {
+            props.animePreview({})
             if(positionSlider > 0){
               var old = positionSlider
               old--
@@ -54,7 +55,9 @@ const Carrousel = (props) => {
               className="sliderContent row-with-x-columns">
                 { animesRecentes.recentes && animesRecentes.recentes.map((anime, index) => (
                    <ItemSlide
+                   positionSlider={positionSlider}
                    setPreviewAnime={props.animePreview}
+                   index={index}
                    animeP={props.animeP}
                    anime={anime} />
                 ))}
@@ -65,9 +68,10 @@ const Carrousel = (props) => {
                 </div> */}
               </div>
             </div>
-            {  document.querySelector('.title-card') && ( positionSlider + 1 ) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length &&
+            { animesRecentes.recentes &&  document.querySelector('.title-card') && ( positionSlider + 1 ) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length &&
             <span 
             onClick={() => {
+              props.animePreview({})
               if(document.querySelector('.title-card')){
                 if((( positionSlider + 1 ) * window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length ){
                   var old = positionSlider
@@ -120,15 +124,18 @@ const ItemSlide = (props) => {
             ref={boxRef}
             onMouseEnter={
               async e => {
-                if(props.animeP.nome != props.anime.nome){
-                  const posX = boxRef.current.x - 45
-                  const posY = boxRef.current.y - 316
-                  const link = props.anime.link
-                  const anime = await axios.get(`http://localhost:5000/${link}`)
+                if(true){
+                  const posX = props.positionSlider == 0 ? (props.index * document.querySelector('.title-card').offsetWidth) : (((props.index * document.querySelector('.title-card').offsetWidth) - (window.window.innerWidth) * props.positionSlider + 1) - (135 * props.positionSlider))
+                  const posY = boxRef.current.y - 285
+                  let link = props.anime.link
+                  link = link.replace(/[ÀÁÂÃÄÅ]/g,"A");
+                  link = link.replace(/[àáâãäå]/g,"a");
+                  link = link.replace(/[ÈÉÊË]/g,"E");
+                  link = link.replace(/[ū]/g,"u");
+                  const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
                   const data = await anime.data
                   const dataCry = data
                   props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
-                  onForceUpdate()
                 }
               }
             }
