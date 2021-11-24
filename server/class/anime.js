@@ -32,6 +32,11 @@ class Anime {
         return this.animeRecentes;
     }
     async getMoreAnime(nome){
+        nome = nome.replace(` `, `%20`)
+        nome = nome.replace(/[ÀÁÂÃÄÅ]/g,"A");
+        nome = nome.replace(/[àáâãäå]/g,"a");
+        nome = nome.replace(/[ÈÉÊË]/g,"E");
+        nome = nome.replace(/[ū]/g,"u");
         const data = await axios.get(`https://www.themoviedb.org/search?query=${nome}&language=pt-BR`)
         this.$ = cheerio.load(data.data);
         const href = this.$(`.results a`).attr(`href`)

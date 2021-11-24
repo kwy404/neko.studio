@@ -49,7 +49,7 @@ class Server {
         });
         app.get(`/anime/:anime`, async (req, res) => {
             try {
-                const animeT = req.params.anime
+                const animeT = req.params.anime.replace(`_`, ` `)
                 const animes = {}
                 const animeTe = new Anime({
                     API_ANIME,
