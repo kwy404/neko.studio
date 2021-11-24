@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import axios from 'axios';
 import bCrypt from 'json-encrypt';
+import PopCorn from 'popcorn-api';
 
 class Anime {
     constructor(Anime){
@@ -30,12 +31,20 @@ class Anime {
         })
         return this.animeRecentes;
     }
+    async getMoreAnime(nome){
+        const data = await axios.get(`https://www.themoviedb.org/search?query=${nome}&language=pt-BR`)
+        this.$ = cheerio.load(data.data);
+        const href = this.$(`.results a`).attr(`href`)
+        const id = href.split(`?`)[0].split(`/`)[2]
+        const anime = await axios.get(`ttps://api.themoviedb.org/3/tv/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
+        return anime.data
+    }
     async getAnime(animeT){
         const anime = {temporadas: [], generoAnime: []}
         this.web = await axios.get(this.API+`anime/${animeT}/`);
         this.dataWeb = await this.web.data;
         this.$ = cheerio.load(this.dataWeb);
-        const nomeAnime =  this.$(`#dt_contenedor #contenedor .yoastbread #breadcrumbs span span span span`).text()
+        const nomeAnime =  this.$(`#dt_contenedor #contenedor .yoastbread #breadcrumbs .breadcrumb_last`).text()
         anime.nomeAnime = nomeAnime
         this.$(`#single .content .sheader .data .sgeneros`).find(`a`).each(async (index, genero) => {
             anime.generoAnime.push(

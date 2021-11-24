@@ -34,24 +34,34 @@ class Server {
             res.send(this.jCrypt({message: `hello`}));
         });
         app.get(`/anime`, async (req, res) => {
-            const animes = {}
-            const anime = new Anime({
-                API_ANIME,
-                Site
-            });
-            const animesRecentes = await anime.getAnimesRecentes();
-            animes[`recentes`] = animesRecentes;
-            res.send(this.jCrypt(animes));
+            try {
+                const animes = {}
+                const anime = new Anime({
+                    API_ANIME,
+                    Site
+                });
+                const animesRecentes = await anime.getAnimesRecentes();
+                animes[`recentes`] = animesRecentes;
+                res.send(this.jCrypt(animes));
+            } catch (error) {
+                res.send({error: true})
+            }
         });
         app.get(`/anime/:anime`, async (req, res) => {
-            const animeT = req.params.anime
-            const animes = {}
-            const animeTe = new Anime({
-                API_ANIME,
-                Site
-            });
-            const animeTE = await animeTe.getAnime(animeT);
-            res.send(this.jCrypt(animeTE));
+            try {
+                const animeT = req.params.anime
+                const animes = {}
+                const animeTe = new Anime({
+                    API_ANIME,
+                    Site
+                });
+                let animeTE = await animeTe.getAnime(animeT);
+                const more = await animeTe.getMoreAnime(animeTE.nomeAnime)
+                animeTE[`more`] = more
+                res.send(this.jCrypt(animeTE));
+            } catch (error) {
+                res.send({error: true})
+            }
         });
         
         app.get(`/episodio/:episodio`, async (req, res) => {
@@ -76,22 +86,8 @@ class Server {
                 if (!err && resp.statusCode === 200){
                 res.set("Content-Type", "image/jpeg");
                 res.send(resp.body);
-                }
-            });
-        });
-        app.get(`/anime/background/:photo`, (req, res) => {
-            const decrypt = bCrypt.decrypt(req.params.photo);
-            let url = decrypt.replace(`"`, ``);
-            url = url.replaceAll(`$`, `/`);
-            console.log(url);
-            request({
-                url: url,
-                encoding: null
-            }, 
-            (err, resp, buffer) => {
-                if (!err && resp.statusCode === 200){
-                res.set("Content-Type", "image/jpeg");
-                res.send(resp.body);
+                } else{
+                    res.send(``)
                 }
             });
         });
