@@ -4,13 +4,15 @@ import axios from 'axios';
 const PreviewModal = (props) => {
     const [scale, setSale] = useState(1);
     const [previewEp, setPreviewEp] = useState(null)
+    const [set, setV] = useState(false)
     const getVideo = async () => {
+      setV(true)
       if(!previewEp && props.anime.dataCry && props.anime.dataCry.temporadas){
         const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
         setPreviewEp(data.data.url)
       }
     }
-    if(!previewEp){
+    if(!set){
       getVideo()
     }
     return (

@@ -4275,3 +4275,8 @@
     width: 100%;
     will-change: opacity;
 }
+
+.ltr-v8pdkb.color-secondary {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: white;
+}

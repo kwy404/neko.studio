@@ -104,7 +104,15 @@ const modalStream = (props) => {
                       <span className="summary">22 de&nbsp;24min</span>
                     </div>
                   </div> */}
+                  {  props.anime.dataCry.temporadas && 
                   <div
+                    onClick={() => {
+                      props.setLoadPlayer(true)
+                      const episode = props.anime.dataCry.temporadas[0].episodes[0]
+                      const anime = props.anime
+                      const data = {...anime, episode }
+                      props.setPlaying(data)
+                    }}
                     className="buttonControls--container"
                     data-uia="mini-modal-controls"
                   >
@@ -120,7 +128,6 @@ const modalStream = (props) => {
                       role="link"
                       aria-label="Assistir"
                       className="primary-button playLink isToolkit"
-                      href="/watch/81178565?trackId=14170045&tctx=3%2C0%2C2298a2b7-ace1-43c1-b364-e4b37ffdb617-179674735%2Ccfe239e0-8837-403c-88ca-12333bc4e981_70957223X6XX1637680320285%2C%2C"
                     >
                       <button
                         className="color-primary hasLabel hasIcon ltr-v8pdkb"
@@ -139,6 +146,7 @@ const modalStream = (props) => {
                       </button>
                     </a>
                   </div>
+                  }
                   <div className="buttonControls--messaging" />
                 </div>
               </div>
@@ -276,7 +284,10 @@ const modalStream = (props) => {
                       </div> */}
                     </div>
                     <div className="episodeSelector-container">
-                      { props.anime.dataCry && props.anime.dataCry.temporadas[0].episodes.map((ep, index) => (
+                      { props.anime.dataCry && props.anime.dataCry.error && 
+                      <h1>Este anime está atualmente indisponível.</h1>
+                      }
+                      { props.anime.dataCry && props.anime.dataCry.temporadas && props.anime.dataCry.temporadas[0].episodes.map((ep, index) => (
                         <Episode
                         setLoadPlayer={props.setLoadPlayer}
                         setPlaying={props.setPlaying}
@@ -349,7 +360,6 @@ const modalStream = (props) => {
                        const episode = props.episode
                        const anime = props.anime
                        const data = {...anime, episode }
-                       console.log(data)
                        props.setPlaying(data)
                      }}
                      className="titleCardList--container episode-item"

@@ -147,6 +147,7 @@ const ItemSlide = (props) => {
                   const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
                   const data = await anime.data
                   const dataCry = data
+                  console.log(data)
                   props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
                 }
               }

@@ -4,6 +4,7 @@ import PreviewModal from './PreviewModal';
 import {useState} from 'react';
 import ModalStream from './modalStream';
 import Player from './player';
+import Destaque from './Destaque';
 
 const Home = () => {
     const [animePreview, setPreviewAnime] = useState({nome: ``});
@@ -11,6 +12,9 @@ const Home = () => {
     const [playing, setPlaying] = useState({})
     const [loadPlayer, setLoadPlayer] = useState(false)
     return <>
+        <Destaque
+        verMais={setVerMais}
+        />
         { loadPlayer && <div
         style={{
             position:`fixed`,
