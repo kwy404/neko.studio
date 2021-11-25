@@ -1,6 +1,18 @@
 import {useState} from 'react';
+import axios from 'axios';
+
 const PreviewModal = (props) => {
     const [scale, setSale] = useState(1);
+    const [previewEp, setPreviewEp] = useState(null)
+    const getVideo = async () => {
+      if(!previewEp && props.anime.dataCry && props.anime.dataCry.temporadas){
+        const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
+        setPreviewEp(data.data.url)
+      }
+    }
+    if(!previewEp){
+      getVideo()
+    }
     return (
       <>
         {props.anime && typeof props.anime.dataCry != `undefined` &&  (
@@ -29,7 +41,7 @@ const PreviewModal = (props) => {
               data-uia="preview-modal-container-MINI_MODAL"
               style={{
                 width: document.querySelector('.title-card').offsetWidth +80+`px`,
-                height: document.querySelector('.title-card').offsetHeight + 210 +`px`,
+                height: document.querySelector('.title-card').offsetHeight + 180 +`px`,
                 top: "243px",
                 left: "-28px",
                 transformOrigin: "center center",
@@ -52,12 +64,18 @@ const PreviewModal = (props) => {
                     transform: `scale(1)`,
                   }}
                 >
-                  <img
+                  <video
+                  className="previewModal--boxart"
+                  onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
+                  playsinline autoPlay muted loop
+                  src={previewEp}/>
+                  { !previewEp && <img
                     className="previewModal--boxart"
                     src={props.anime.photo}
                     alt={props.anime.nome}
                     style={{ opacity: 1 }}
-                  />
+                  />}
+                  
                 </div>
               </div>
               <div className="previewModal-close">
@@ -206,6 +224,8 @@ const PreviewModal = (props) => {
                             data-uia="expand-to-detail-button"
                             type="button"
                             onClick={() => {
+                              var oldAnime = props.anime
+                              oldAnime[`video`] = previewEp
                               props.verMais(props.anime)
                               console.log(props.anime)
                             }} 
@@ -284,7 +304,6 @@ const PreviewModal = (props) => {
                                     </svg>
                                   </span>
                                 </span>
-                                <span className="duration">1h 57min</span>
                                 <span className="player-feature-badge">HD</span>
                               </div>
                             </div>
@@ -292,7 +311,7 @@ const PreviewModal = (props) => {
                         </div>
                         <div
                           className="previewModal--metadatAndControls-tags-container"
-                          style={{ opacity: 1 }}
+                          style={{ opacity: 0 }}
                         >
                           <div className="evidence-tags">
                             <div className="evidence-list">

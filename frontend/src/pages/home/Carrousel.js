@@ -7,8 +7,9 @@ const Carrousel = (props) => {
     const [api, setApi] = useState(false);
     const [positionSlider, setPositionSlider] = useState(0);
     const getAnimes = async () => {
-      const anime = await axios.get(`http://localhost:5000/anime`)
-      const data = await anime.data
+      const anime = await axios.get(`http://localhost:5000/${props.url}`)
+      let data = await anime.data
+      data.splice(13, data.length)
       setAnimesRecentes(data);
       setApi(true)
     }
@@ -53,7 +54,8 @@ const Carrousel = (props) => {
                 transform: `translateX(${ document.querySelector('.title-card') ? `${((positionSlider) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth).toFixed(0) *  document.querySelector('.title-card').offsetWidth) * -1  + 'px'}` : `0px`})`
               }}
               className="sliderContent row-with-x-columns">
-                { animesRecentes.recentes && animesRecentes.recentes.map((anime, index) => (
+                { animesRecentes && animesRecentes.map((anime, index) => (
+                   index < 12 &&
                    <ItemSlide
                    positionSlider={positionSlider}
                    setPreviewAnime={props.animePreview}
@@ -61,6 +63,16 @@ const Carrousel = (props) => {
                    animeP={props.animeP}
                    anime={anime} />
                 ))}
+                { 
+                animesRecentes.length == 0 &&
+                [0,0,0,0,0,0,0,0,0,0,0].map((item) => (
+                  <div className="slider-item slider-item-">
+                  <div className="smallTitleCard loadingTitle fullWidth">
+                    <div className="ratio-16x9 pulsate" />
+                  </div>
+                </div>
+                ))
+                }
                 {/* <div className="slider-item slider-item-">
                   <div className="smallTitleCard loadingTitle fullWidth">
                     <div className="ratio-16x9 no-pulsate" />
@@ -68,12 +80,12 @@ const Carrousel = (props) => {
                 </div> */}
               </div>
             </div>
-            { animesRecentes.recentes &&  document.querySelector('.title-card') && ( positionSlider + 1 ) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length &&
+            { animesRecentes && document.querySelector('.title-card') && ( positionSlider + 1 ) * (window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.length &&
             <span 
             onClick={() => {
               props.animePreview({})
               if(document.querySelector('.title-card')){
-                if((( positionSlider + 1 ) * window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.recentes.length ){
+                if((( positionSlider + 1 ) * window.window.innerWidth / document.querySelector('.title-card').offsetWidth) < animesRecentes.length ){
                   var old = positionSlider
                   old++
                   setPositionSlider(old)

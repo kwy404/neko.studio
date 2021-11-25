@@ -29,22 +29,32 @@ const Home = () => {
             <Carrousel
             animePreview={setPreviewAnime}
             animeP={animePreview}
+            url={`anime`}
             title={`Animes recentes`}
             ></Carrousel>
             <Carrousel
             animePreview={setPreviewAnime}
             animeP={animePreview}
-            title={`Animes recentes`}
+            url={`genero/acao/1`}
+            title={`Animes de Ação`}
+            ></Carrousel>
+             <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            url={`genero/artes-marciais/1`}
+            title={`Animes de Artes Marciais`}
             ></Carrousel>
             <Carrousel
             animePreview={setPreviewAnime}
             animeP={animePreview}
-            title={`Animes recentes`}
+            url={`genero/comedia/1`}
+            title={`Animes de Comédia`}
             ></Carrousel>
             <Carrousel
             animePreview={setPreviewAnime}
             animeP={animePreview}
-            title={`Animes recentes`}
+            url={`genero/drama/1`}
+            title={`Animes de Drama`}
             ></Carrousel>
             {animePreview.nome &&
                 <PreviewModal 

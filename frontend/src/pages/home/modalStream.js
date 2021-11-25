@@ -45,16 +45,18 @@ const modalStream = (props) => {
                   overflow: "hidden",
                 }}
               >
+                 { props.anime.video &&
                 <video
-                  src="blob:https://www.netflix.com/2ee2fff6-aec6-4df9-a9ed-7b59efc39222"
+                  src={props.anime.video}
                   data-videoid={81206784}
+                  playsinline autoPlay muted loop
                   style={{
                     position: "absolute",
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
                   }}
-                />
+                /> }
                 <div
                   className="player-timedtext"
                   style={{
@@ -74,7 +76,7 @@ const modalStream = (props) => {
              
             </div>
             <div className="storyArt detail-modal has-smaller-buttons">
-            { props.anime.dataCry.more && 
+            { props.anime.dataCry.more &&  !props.anime.video &&
             <img
                 src={`https://image.tmdb.org/t/p/original/${props.anime.dataCry.more.backdrop_path}`}
                 className="playerModel--player__storyArt detail-modal has-smaller-buttons"
@@ -201,7 +203,8 @@ const modalStream = (props) => {
                           </span>
                         </div>
                         <div className="videoMetadata--second-line">
-                          <div className="year">2021</div>
+                          {  props.anime.dataCry.more &&  <div className="year">{ props.anime.dataCry.more.last_air_date.split(`-`)[0] }</div>}
+                         
                           <a href="#about">
                             <span className="maturity-rating ">
                               <span>
@@ -214,7 +217,9 @@ const modalStream = (props) => {
                               </span>
                             </span>
                           </a>
-                          <span className="duration">5 Temporadas</span>
+                          {props.anime.dataCry.more &&
+                          <span className="duration">{props.anime.dataCry.more.number_of_seasons} Temporadas</span>
+                          } 
                           <span className="player-feature-badge">HD</span>
                         </div>
                       </div>
