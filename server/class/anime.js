@@ -79,6 +79,46 @@ class Anime {
         })
         return anime;
     }
+    async getGenero(genero, page){
+        this.web = await axios.get(this.API+`genero/${genero}/page/${page}/`);
+        this.dataWeb = await this.web.data;
+        this.$ = cheerio.load(this.dataWeb);
+        this.$(`#dt_contenedor #contenedor .module .items article`).find(`div`).each(async (index, anime) => {
+            let nome = ``
+            let imagem = ``
+            let link = ``   
+            let background = ``
+            if(this.$(anime).attr(`class`) === `poster`){
+                link = this.$(anime).find(`a`).attr(`href`).replace(this.API, ``)
+                const arrayOfImage = this.$(anime).find(`a img`).attr(`src`).replace(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
+                imagem = arrayOfImage[0].replace(`/`, `$`)+`-`+arrayOfImage[1];
+                imagem = this.Site+`anime/photo/`+bCrypt.encrypt(imagem);
+                nome = this.$(anime).find(`a img`).attr(`alt`);
+                this.animeRecentes.push({link, imagem, nome, background, created: `kaway404`});
+            }
+        })
+        return this.animeRecentes;
+    }
+    async getSearch(search, page){
+        this.web = await axios.get(this.API+`search/${search}/page/${page}/`);
+        this.dataWeb = await this.web.data;
+        this.$ = cheerio.load(this.dataWeb);
+        this.$(`#dt_contenedor #contenedor .module .content #archive-content .item`).find(`div`).each(async (index, anime) => {
+            let nome = ``
+            let imagem = ``
+            let link = ``   
+            let background = ``
+            if(this.$(anime).attr(`class`) === `poster`){
+                link = this.$(anime).find(`a`).attr(`href`).replace(this.API, ``)
+                const arrayOfImage = this.$(anime).find(`a img`).attr(`src`).replace(`https://animesonline.cc/wp-content/uploads/`, ``).split(`-`);
+                imagem = arrayOfImage[0].replace(`/`, `$`)+`-`+arrayOfImage[1];
+                imagem = this.Site+`anime/photo/`+bCrypt.encrypt(imagem);
+                nome = this.$(anime).find(`a img`).attr(`alt`);
+                this.animeRecentes.push({link, imagem, nome, background, created: `kaway404`});
+            }
+        })
+        return this.animeRecentes;
+    }
     async getVideo(animeT){
         let video = {}
         try {

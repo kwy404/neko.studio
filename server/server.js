@@ -41,8 +41,7 @@ class Server {
                     Site
                 });
                 const animesRecentes = await anime.getAnimesRecentes();
-                animes[`recentes`] = animesRecentes;
-                res.send(this.jCrypt(animes));
+                res.send(this.jCrypt(animesRecentes));
             } catch (error) {
                 res.send({error: true})
             }
@@ -60,6 +59,40 @@ class Server {
                 animeTE[`more`] = more
                 res.send(this.jCrypt(animeTE));
             } catch (error) {
+                res.send({error: true})
+            }
+        });
+
+        app.get(`/genero/:genero/:page`, async (req, res) => {
+            try {
+                const animeT = req.params.genero
+                const page = req.params.page
+                const animes = {}
+                const animeTe = new Anime({
+                    API_ANIME,
+                    Site
+                });
+                const animeTE = await animeTe.getGenero(animeT, page);
+                res.send(animeTE)
+            } catch (error) {
+                console.log(error)
+                res.send({error: true})
+            }
+        });
+
+        app.get(`/search/:search/:page`, async (req, res) => {
+            try {
+                const animeT = req.params.search
+                const page = req.params.page
+                const animes = {}
+                const animeTe = new Anime({
+                    API_ANIME,
+                    Site
+                });
+                const animeTE = await animeTe.getSearch(animeT, page);
+                res.send(animeTE)
+            } catch (error) {
+                console.log(error)
                 res.send({error: true})
             }
         });
