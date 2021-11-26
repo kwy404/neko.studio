@@ -3,5 +3,6 @@ Sistema de fila => somente se não estiver logado
 Sistema de favoritos => somente se não estiver logado
 
 Mudar design ao logo do tempo, por enquanto irei deixar igual da Netflix para poupar tempo na criação do site
+Sistema de Watch Party
 
 Mimizar player => Igual YouTube
