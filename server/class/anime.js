@@ -37,12 +37,22 @@ class Anime {
         nome = nome.replace(/[àáâãäå]/g,"a");
         nome = nome.replace(/[ÈÉÊË]/g,"E");
         nome = nome.replace(/[ū]/g,"u");
-        const data = await axios.get(`https://www.themoviedb.org/search?query=${nome}&language=pt-BR`)
-        this.$ = cheerio.load(data.data);
-        const href = this.$(`.results a`).attr(`href`)
-        const id = href.split(`?`)[0].split(`/`)[2]
-        const anime = await axios.get(`ttps://api.themoviedb.org/3/tv/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
-        return anime.data
+        try {
+            const data = await axios.get(`https://www.themoviedb.org/search?query=${nome}&language=pt-BR`)
+            this.$ = cheerio.load(data.data);
+            const href = this.$(`.results a`).attr(`href`)
+            const id = href.split(`?`)[0].split(`/`)[2]
+            let anime = null
+            try {
+                anime = await axios.get(`ttps://api.themoviedb.org/3/tv/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
+            } catch (error) {
+                anime = await axios.get(`ttps://api.themoviedb.org/3/movie/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
+            }
+            return anime.data
+        } catch (error) {
+            return {}
+        }
+        
     }
     async getAnime(animeT){
         const anime = {temporadas: [], generoAnime: []}

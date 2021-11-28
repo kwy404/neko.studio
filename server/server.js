@@ -47,7 +47,6 @@ class Server {
             }
         });
         app.get(`/anime/:anime`, async (req, res) => {
-            try {
                 const animeT = req.params.anime.replace(`_`, ` `)
                 const animes = {}
                 const animeTe = new Anime({
@@ -58,9 +57,6 @@ class Server {
                 const more = await animeTe.getMoreAnime(animeTE.nomeAnime)
                 animeTE[`more`] = more
                 res.send(this.jCrypt(animeTE));
-            } catch (error) {
-                res.send({error: true})
-            }
         });
 
         app.get(`/genero/:genero/:page`, async (req, res) => {
