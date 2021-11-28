@@ -69,11 +69,11 @@ const PreviewModal = (props) => {
                   <video
                   className="previewModal--boxart"
                   onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
-                  playsinline autoPlay muted loop
+                  playsinline autoPlay loop
                   src={previewEp}/>
                   { !previewEp && <img
                     className="previewModal--boxart"
-                    src={props.anime.photo}
+                    src={`https://image.tmdb.org/t/p/original/${props.anime.dataCry.more.backdrop_path}`}
                     alt={props.anime.nome}
                     style={{ opacity: 1 }}
                   />}

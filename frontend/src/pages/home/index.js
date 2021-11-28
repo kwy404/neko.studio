@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import Carrousel from './Carrousel';
 import PreviewModal from './PreviewModal';
 import {useState} from 'react';
 import ModalStream from './modalStream';
 import Player from './player';
 import Destaque from './Destaque';
+import Splash from './Splash';
 
 const Home = () => {
     const [animePreview, setPreviewAnime] = useState({nome: ``});
@@ -84,6 +84,7 @@ const Home = () => {
         }
         </div>
         }
+        <Splash/>
     </>
 }
 

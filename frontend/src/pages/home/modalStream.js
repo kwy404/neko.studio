@@ -211,7 +211,7 @@ const modalStream = (props) => {
                           </span>
                         </div>
                         <div className="videoMetadata--second-line">
-                          {  props.anime.dataCry.more &&  <div className="year">{ props.anime.dataCry.more.last_air_date.split(`-`)[0] }</div>}
+                          {  props.anime.dataCry.more && props.anime.dataCry.more.last_air_date && <div className="year">{ props.anime.dataCry.more.last_air_date.split(`-`)[0] }</div>}
                          
                           <a href="#about">
                             <span className="maturity-rating ">
