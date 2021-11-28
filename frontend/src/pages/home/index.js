@@ -5,17 +5,30 @@ import ModalStream from './modalStream';
 import Player from './player';
 import Destaque from './Destaque';
 import Splash from './Splash';
+import SearchResult from './Search';
+import Header from './Header';
 
 const Home = () => {
     const [animePreview, setPreviewAnime] = useState({nome: ``});
     const [verMais, setVerMais] = useState({});
     const [playing, setPlaying] = useState({})
     const [loadPlayer, setLoadPlayer] = useState(false)
+    const [animes, setAnimes] = useState([])
     return <>
+        <Header
+        setAnimes={setAnimes}
+        />
+        <SearchResult
+        setPreviewAnime={setPreviewAnime}
+        animeP={animePreview}
+        animes={animes}
+        />
+        { animes.length == 0 && 
+        <>
         <Destaque
         verMais={setVerMais}
         />
-        { loadPlayer && <div
+         { loadPlayer && <div
         style={{
             position:`fixed`,
             zIndex: `50000`,
@@ -27,8 +40,6 @@ const Home = () => {
         back={setPlaying}
         setLoadPlayer={setLoadPlayer}
         player={playing}></Player> }
-        {
-        true &&
         <div>
             <Carrousel
             animePreview={setPreviewAnime}
@@ -60,12 +71,15 @@ const Home = () => {
             url={`genero/drama/1`}
             title={`Animes de Drama`}
             ></Carrousel>
-            {animePreview.nome &&
-                <PreviewModal 
-                animePreview={setPreviewAnime}
-                verMais={setVerMais}
-                anime={animePreview}></PreviewModal>
-            }
+        </div>
+        </>
+        }
+        { animePreview.nome &&
+            <PreviewModal 
+            animePreview={setPreviewAnime}
+            verMais={setVerMais}
+            anime={animePreview}></PreviewModal>
+        }
         { verMais.nome &&
             <div style={{
                 position: `fixed`,
@@ -73,7 +87,7 @@ const Home = () => {
                 width: `100%`,
                 zIndex: `5000`,
             }}>
-                <div tabindex="-1" style={{opacity: `1`, overflow: `auto`, backgroundColor: `rgba(0,0,0,.30)`}}><div class="previewModal--backDrop" tabindex="-1" data-uia="previewModal--backDrop">
+            <div tabindex="-1" style={{opacity: `1`, overflow: `auto`, backgroundColor: `rgba(0,0,0,.30)`}}><div class="previewModal--backDrop" tabindex="-1" data-uia="previewModal--backDrop">
                 <ModalStream 
                 setLoadPlayer={setLoadPlayer}
                 setPlaying={setPlaying}
@@ -82,8 +96,7 @@ const Home = () => {
                 </div></div>
             </div>
         }
-        </div>
-        }
+        
         <Splash/>
     </>
 }

@@ -9,7 +9,7 @@ const Splash = () => {
     setTimeout(() => {
         setLoad(true)
         document.querySelector(`body`).style.overflowY = `auto`
-    }, 2000);
+    }, 6000);
     return (
         <div>
         { !load &&
