@@ -37,6 +37,8 @@ class Anime {
         nome = nome.replace(/[àáâãäå]/g,"a");
         nome = nome.replace(/[ÈÉÊË]/g,"E");
         nome = nome.replace(/[ū]/g,"u");
+        nome = nome.replace(`Dublado`, ``)
+        nome = nome.replace(`Legenadado`, ``)
         try {
             const data = await axios.get(`https://www.themoviedb.org/search?query=${nome}&language=pt-BR`)
             this.$ = cheerio.load(data.data);
