@@ -1,9 +1,11 @@
 # Bem Vindos, ao NeekoApp
-## A rede social para otakus
-
 ![GitHub repo size](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
 
 ![GitHub forks](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
+
+## A rede social para otakus
+
+
 
 <table>
   <tr>
@@ -19,7 +21,7 @@
       <a href="#">
         <img src="https://avatars.githubusercontent.com/u/59587363?v=4" width="100px;" alt="Foto de quem dá a xereca"/><br>
         <sub>
-          <b>Thor</b>
+          <b>Kaway</b>
         </sub>
       </a>
     </td>
