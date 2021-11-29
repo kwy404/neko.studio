@@ -1,7 +1,7 @@
 # Bem Vindos, ao NeekoApp
-![GitHub repo size](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
-
-![GitHub forks](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Moonlight404/neko.studio?style=for-the-badge)
+![GitHub repo forks](https://img.shields.io/github/forks/Moonlight404/neko.studio?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/Moonlight404/neko.studio?style=for-the-badge)
 
 ## A rede social para otakus
 
