@@ -46,9 +46,9 @@ class Anime {
             const id = href.split(`?`)[0].split(`/`)[2]
             let anime = null
             try {
-                anime = await axios.get(`ttps://api.themoviedb.org/3/tv/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
+                anime = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
             } catch (error) {
-                anime = await axios.get(`ttps://api.themoviedb.org/3/movie/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
+                anime = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=ccc818e2030b429ec7c400dd6cc5551e&language=pt-BR`)
             }
             return anime.data
         } catch (error) {
