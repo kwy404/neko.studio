@@ -52,7 +52,7 @@ class Video extends React.Component {
                 fullPlayer
                 autoPlay
                 startPosition={0}
-                primaryColor="#03dffc"
+                primaryColor="#6f09e4"
                 secundaryColor="#ffffff"
                 fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
               />
