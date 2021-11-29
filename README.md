@@ -1,16 +1,27 @@
-# Para rodar o projeto, bem simples
+# Bem Vindos, ao NeekoApp
+## A rede social para otakus
 
-# Em frontend, rode npm i e depois rode npm start
+![GitHub repo size](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
 
-# Em server, rode npm i e depois rode npm start
+![GitHub forks](https://github.com/Moonlight404/neko.studio?style=for-the-badge)
 
-## Protinho, ira abrir em seu navegador o site
-
-# Inicio
-![alt text](https://github.com/Moonlight404/neko.studio/blob/main/1.png?raw=true)
-
-# Busca
-![alt text](https://github.com/Moonlight404/neko.studio/blob/main/2.png?raw=true)
-
-# Player
-![alt text](https://github.com/Moonlight404/neko.studio/blob/main/3.png?raw=true)
+<table>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/95253278?v=4" width="100px;" alt="Foto do comedor de xereca"/><br>
+        <sub>
+          <b>Thor</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/59587363?v=4" width="100px;" alt="Foto de quem dá a xereca"/><br>
+        <sub>
+          <b>Thor</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
