@@ -12,6 +12,7 @@ class Video extends React.Component {
   }
   componentDidMount(){
     this.getPlayer()
+    console.log(this.props)
   }
   async getPlayer() {
     const react = this
@@ -20,6 +21,14 @@ class Video extends React.Component {
         const res = await axios.get(`http://localhost:5000/${this.props.player.episode.href}`);
         const json = res.data
         react.setState({anime: json})
+        react.props.setLoadPlayer(false)
+      } else{
+        const data = await axios.get(`http://localhost:5000/play/${react.props.player.linker}`)
+        var httpResponseMock = data.data; 
+        const script = document.createElement("script");
+        script.textContent = httpResponseMock;
+        document.head.appendChild(script);
+        react.setState({anime: {url: `https://${window['linkVideoMP4']}`}})
         react.props.setLoadPlayer(false)
       }
     } catch (error) {
@@ -38,11 +47,11 @@ class Video extends React.Component {
           <div className="player">
                 <ReactNetflixPlayer
                 // Vídeo Link - Just data is required
-                src={this.props.player.movie ? this.props.player.episode : this.state.anime.url}
-                title={this.props.player.nome}
-                subTitle="Anime"
-                titleMedia={this.props.player.nome+` | ${(!this.props.player.movie ? this.props.player.episode.ep : ``)}`}
-                extraInfoMedia="Anime"
+                src={this.state.anime.url}
+                title={this.props.player.nome.replace(`undefined`,``)}
+                subTitle={`${(this.props.player.movie ? `Filme` : `Serie`)}`}
+                titleMedia={this.props.player.nome.replace(`undefined`,``)+` | ${(!this.props.player.movie ? this.props.player.episode.ep : ``)}`}
+                extraInfoMedia={`${(this.props.player.movie ? `Filme` : `Serie`)}`}
                 // Text language of player
                 playerLanguage="pt"
                 // Action when the button X (close) is clicked

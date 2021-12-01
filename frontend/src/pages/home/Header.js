@@ -37,6 +37,10 @@ const Header = (props) => {
                         if(data.data.length > 0){
                             props.setAnimes(data.data)
                         }
+                        const dataTwo = await axios.get(`http://localhost:5000/searchMovie/${document.querySelector(`#searchInput`).value}`)
+                        if(dataTwo.data.length > 0){
+                            props.setFilmes(dataTwo.data)
+                        }
                     }}
                     type="text" id="searchInput" name="searchInput" placeholder data-search-input="true" dir="ltr" data-uia="search-box-input" aria-labelledby="searchInput-label" maxLength={80} defaultValue={``} className style={{opacity: 1, transitionDuration: '300ms'}} />
                     <span 

@@ -547,7 +547,6 @@ export default function ReactNetflixPlayer({
       {renderCloseVideo()}
 
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <source>
         <video
           ref={videoComponent}
           src={src}
@@ -556,12 +555,12 @@ export default function ReactNetflixPlayer({
           onTimeUpdate={timeUpdate}
           onError={erroVideo}
           onEnded={onEndedFunction}
+          onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
         >
           {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
         </video>
-      </source>
 
-      <source>
+      {/* <source>
         <video
           id={`refVideoPlay`}
           style={{
@@ -575,9 +574,8 @@ export default function ReactNetflixPlayer({
           src={src}
           controls={false}
           >
-          {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
         </video>
-      </source>
+      </source> */}
 
       <Controlls
         show={showControls === true && videoReady === true && error === false}

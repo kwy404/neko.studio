@@ -14,14 +14,18 @@ const Home = () => {
     const [playing, setPlaying] = useState({})
     const [loadPlayer, setLoadPlayer] = useState(false)
     const [animes, setAnimes] = useState([])
+    const [filmes, setFilmes] = useState([])
     return <>
         <Header
         setAnimes={setAnimes}
+        setFilmes={setFilmes}
         />
         <SearchResult
         setPreviewAnime={setPreviewAnime}
         animeP={animePreview}
         animes={animes}
+        filmes={filmes}
+
         />
         { animes.length == 0 && 
         <>
@@ -87,7 +91,7 @@ const Home = () => {
         { animePreview.nome &&
             <PreviewModal 
             animePreview={setPreviewAnime}
-            verMais={setVerMais}
+            setVerMais={setVerMais}
             anime={animePreview}></PreviewModal>
         }
         { verMais.nome &&

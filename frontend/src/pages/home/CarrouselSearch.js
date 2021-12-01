@@ -44,6 +44,7 @@ const CarrouselSearch = (props) => {
                    setPreviewAnime={props.animePreview}
                    index={index}
                    animeP={props.animeP}
+                   movie={props.movie}
                    anime={anime} />
                 ))}
                 { 
@@ -127,12 +128,19 @@ const ItemSlide = (props) => {
                   link = link.replace(/[àáâãäå]/g,"a");
                   link = link.replace(/[ÈÉÊË]/g,"E");
                   link = link.replace(/[ū]/g,"u");
-                  link = link.replace(`Dublado`, ``)
-                  link = link.replace(`Legenadado`, ``)
-                  const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
-                  const data = await anime.data
-                  const dataCry = data
-                  props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
+                  if(!props.movie){
+                    const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
+                    const data = await anime.data
+                    const dataCry = data
+                    props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
+                  } else{
+                    const anime = await axios.get(`http://localhost:5000/filme/${link.replace(` `, `_`)}`)
+                    const data = await anime.data
+                    const linker = props.anime.link
+                    const dataCry = data
+                    props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, movie: `true`, linker})
+                  }
+                  
                 }
               }
             }

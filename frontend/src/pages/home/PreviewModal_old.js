@@ -8,6 +8,13 @@ const PreviewModal = (props) => {
     const [set, setV] = useState(false)
     const getVideo = async () => {
       setV(true)
+      if(props.anime.movie){
+          const data = await axios.get(`http://localhost:5000/play/${props.anime.linker}`)
+          var httpResponseMock = data.data; 
+          const script = document.createElement("script");
+          script.textContent = httpResponseMock;
+          document.head.appendChild(script);
+      }
       if(!previewEp && props.anime.dataCry && props.anime.dataCry.temporadas){
         if(!props.anime.movie){
           const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
@@ -73,7 +80,6 @@ const PreviewModal = (props) => {
                   className="previewModal--boxart"
                   onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
                   playsinline autoPlay loop
-                  muted
                   src={props.anime.movie ? `https://${window['linkVideoMP4']}&stream=1` : previewEp}/>
                   { !previewEp || window['linkVideoMP4'] && <img
                     className="previewModal--boxart"
