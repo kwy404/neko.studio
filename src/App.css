@@ -1,0 +1,29 @@
+:root{
+    --black: #080609;
+    --blue: #262555;
+    --purple: #6D20C9;
+    --purpleLow: #AB65FF;
+}
+
+body{
+    background: #040404;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@keyframes scaleE {
+    0%{
+        transform: scale(0.8);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.previewFocuskaway{
+    animation: scaleE 0.6s ease;
+    z-index: 1000;
+    transition: all 0.6s ease;
+}
