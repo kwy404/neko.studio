@@ -20,6 +20,19 @@ class Filme {
         })
         return this.movies;
     }
+    async searchMovie(search){
+        this.web = await axios.get(`https://filmesonlines.org/pesquisar/${search}`);
+        this.dataWeb = await this.web.data;
+        this.$ = cheerio.load(this.dataWeb);
+        this.$(`.wrap .generalMoviesList`).find(`a`).each(async (index, filme) => {
+            let nome = this.$(filme).find(`.inner .p .e h3`).text().replace(`Assistir `, ``).replace(` Online`)
+            let imagem = `https://filmesonlines.org`+this.$(filme).find(`.inner .p img`).attr(`src`)
+            let link = this.$(filme).attr(`href`)
+            let background = ``
+            this.movies.push({link, imagem, nome, background, created: `kaway404`});
+        })
+        return this.movies;
+    }
     async getVideo(link){
         try {
             this.web = await axios.get(`https://filmesonlines.org/${link}`);
@@ -50,7 +63,7 @@ class Filme {
                 window['linkVideoMP4'] = robotlink
             `
         } catch (error) {
-            return `error`   
+            return `console.log(0)`   
         }
         
     }
