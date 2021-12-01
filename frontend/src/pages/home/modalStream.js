@@ -1,4 +1,20 @@
-const modalStream = (props) => {
+import {useState} from 'react';
+import axios from 'axios';
+
+const ModalStream = (props) => {
+    const [set, setV] = useState(false)
+
+    const getVideo = async () => {
+      const data = await axios.get(`http://localhost:5000/play/${props.anime.linker}`)
+      var httpResponseMock = data.data; 
+      const script = document.createElement("script");
+      script.textContent = httpResponseMock;
+      document.head.appendChild(script);
+    }
+    if(!set){
+      setV(true)
+      getVideo()
+    }
     return (
       <div
         className="focus-trap-wrapper previewModal--wrapper detail-modal has-smaller-buttons"
@@ -104,12 +120,17 @@ const modalStream = (props) => {
                       <span className="summary">22 de&nbsp;24min</span>
                     </div>
                   </div> */}
-                  {  props.anime.dataCry.temporadas && 
+                  {  props.anime.dataCry.temporadas || window['linkVideoMP4'] && 
                   <div
                     onClick={() => {
                       props.setLoadPlayer(true)
-                      const episode = props.anime.dataCry.temporadas[0].episodes[0]
+                      let episode = ``
                       const anime = props.anime
+                      if(props.anime.movie){
+                         episode = `https://${window['linkVideoMP4']}`
+                      } else{
+                        episode = props.anime.dataCry.temporadas[0].episodes[0]
+                      }
                       const data = {...anime, episode }
                       props.setPlaying(data)
                     }}
@@ -225,7 +246,7 @@ const modalStream = (props) => {
                               </span>
                             </span>
                           </a>
-                          {props.anime.dataCry.more &&
+                          {props.anime.dataCry.more && !props.anime.movie &&
                           <span className="duration">{props.anime.dataCry.more.number_of_seasons} Temporadas</span>
                           } 
                           <span className="player-feature-badge">HD</span>
@@ -234,7 +255,7 @@ const modalStream = (props) => {
                     </div>
                   </div>
                   <div className="previewModal-episodeDetails">
-                    <b>{props.anime.nome}</b>
+                    <b>{props.anime.nome.replace(`undefined`, ``)}</b>
                   </div>
                   <p
                     className="preview-modal-synopsis previewModal--text"
@@ -259,6 +280,7 @@ const modalStream = (props) => {
                 </div>
               </div>
               <div className="ptrack-container">
+                { !props.anime.movie &&
                 <div
                   className="ptrack-content"
                   data-ui-tracking-context="%7B%22appView%22:%22episodesSelector%22%7D"
@@ -325,6 +347,12 @@ const modalStream = (props) => {
                     </div>
                   </div>
                 </div>
+              }
+              { props.anime.movie &&
+              <>
+              <br/><br/><br/><br/><br/><br/><br/>
+              </>
+              }
               </div>
               <div className="ptrack-container">
                 <div
@@ -410,4 +438,4 @@ const modalStream = (props) => {
                    </div>
   }
 
-  export default modalStream;
+  export default ModalStream;

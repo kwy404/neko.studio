@@ -16,13 +16,13 @@ class Video extends React.Component {
   async getPlayer() {
     const react = this
     try {
-      const res = await axios.get(`http://localhost:5000/${this.props.player.episode.href}`);
-      const json = res.data
-      react.setState({anime: json})
-      react.props.setLoadPlayer(false)
-      
+      if(!react.props.player.movie){
+        const res = await axios.get(`http://localhost:5000/${this.props.player.episode.href}`);
+        const json = res.data
+        react.setState({anime: json})
+        react.props.setLoadPlayer(false)
+      }
     } catch (error) {
-      console.log(`error`)
       return { error };
     }
   }
@@ -38,11 +38,10 @@ class Video extends React.Component {
           <div className="player">
                 <ReactNetflixPlayer
                 // Vídeo Link - Just data is required
-                src={this.state.anime.url}
-                // src={"http://videoinvalid"}
+                src={this.props.player.movie ? this.props.player.episode : this.state.anime.url}
                 title={this.props.player.nome}
                 subTitle="Anime"
-                titleMedia={this.props.player.nome+` | ${this.props.player.episode.ep}`}
+                titleMedia={this.props.player.nome+` | ${(!this.props.player.movie ? this.props.player.episode.ep : ``)}`}
                 extraInfoMedia="Anime"
                 // Text language of player
                 playerLanguage="pt"

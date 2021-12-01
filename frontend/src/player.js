@@ -547,17 +547,37 @@ export default function ReactNetflixPlayer({
       {renderCloseVideo()}
 
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <video
-        ref={videoComponent}
-        src={src}
-        controls={false}
-        onCanPlay={() => startVideo()}
-        onTimeUpdate={timeUpdate}
-        onError={erroVideo}
-        onEnded={onEndedFunction}
-      >
-        {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
-      </video>
+      <source>
+        <video
+          ref={videoComponent}
+          src={src}
+          controls={false}
+          onCanPlay={() => startVideo()}
+          onTimeUpdate={timeUpdate}
+          onError={erroVideo}
+          onEnded={onEndedFunction}
+        >
+          {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
+        </video>
+      </source>
+
+      <source>
+        <video
+          id={`refVideoPlay`}
+          style={{
+            position: `fixed`,
+            bottom: `-28vh`,
+            left: `0px`,
+            transform: `scale(0.2)`,
+            borderRadius: `10px`,
+            zIndex: `5000`
+          }}
+          src={src}
+          controls={false}
+          >
+          {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
+        </video>
+      </source>
 
       <Controlls
         show={showControls === true && videoReady === true && error === false}
@@ -577,6 +597,10 @@ export default function ReactNetflixPlayer({
           <div className="line-reproduction">
             <input
               type="range"
+              onMouseMove={(e) => {
+                var vid = document.getElementById("refVideoPlay");
+                //vid.currentTime
+              }}
               value={progress}
               className="progress-bar"
               max={duration}

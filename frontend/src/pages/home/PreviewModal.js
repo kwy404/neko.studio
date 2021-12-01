@@ -4,12 +4,22 @@ import axios from 'axios';
 const PreviewModal = (props) => {
     const [scale, setSale] = useState(1);
     const [previewEp, setPreviewEp] = useState(null)
+    const [scriptPreview, setScriptPreview] = useState(``)
     const [set, setV] = useState(false)
     const getVideo = async () => {
       setV(true)
+      if(props.anime.movie){
+          const data = await axios.get(`http://localhost:5000/play/${props.anime.linker}`)
+          var httpResponseMock = data.data; 
+          const script = document.createElement("script");
+          script.textContent = httpResponseMock;
+          document.head.appendChild(script);
+      }
       if(!previewEp && props.anime.dataCry && props.anime.dataCry.temporadas){
-        const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
-        setPreviewEp(data.data.url)
+        if(!props.anime.movie){
+          const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
+          setPreviewEp(data.data.url)
+        }
       }
     }
     if(!set){
@@ -70,8 +80,8 @@ const PreviewModal = (props) => {
                   className="previewModal--boxart"
                   onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
                   playsinline autoPlay loop
-                  src={previewEp}/>
-                  { !previewEp && <img
+                  src={props.anime.movie ? `https://${window['linkVideoMP4']}` : previewEp}/>
+                  { !previewEp || window['linkVideoMP4'] && <img
                     className="previewModal--boxart"
                     src={`https://image.tmdb.org/t/p/original/${props.anime.dataCry.more.backdrop_path}`}
                     alt={props.anime.nome}
@@ -229,7 +239,6 @@ const PreviewModal = (props) => {
                               var oldAnime = props.anime
                               oldAnime[`video`] = previewEp
                               props.verMais(props.anime)
-                              console.log(props.anime)
                             }} 
                           >
                             <div className="ltr-1ksxkn9">

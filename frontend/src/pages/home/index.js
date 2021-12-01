@@ -67,6 +67,20 @@ const Home = () => {
             url={`genero/drama/1`}
             title={`Animes de Drama`}
             ></Carrousel>
+            <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            url={`movie/todos/1`}
+            title={`Filmes`}
+            movie={true}
+            ></Carrousel>
+            <Carrousel
+            animePreview={setPreviewAnime}
+            animeP={animePreview}
+            url={`movie/suspense/1`}
+            title={`Filmes de Suspense`}
+            movie={true}
+            ></Carrousel>
         </div>
         </>
         }
@@ -98,6 +112,7 @@ const Home = () => {
         player={playing}></Player> }
         
         <Splash/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
 }
 
