@@ -1,8 +1,8 @@
 import express from 'express';
 import Crawler from './crawler/anime.js';
 import bCrypt from 'json-encrypt';
-import Animes from './class/anime.js';
 import Anime from './class/anime.js';
+import Movie from './class/filme.js';
 import request from 'request';
 import cors from 'cors';
 import http from 'http';
@@ -57,6 +57,37 @@ class Server {
                 const more = await animeTe.getMoreAnime(animeTE.nomeAnime)
                 animeTE[`more`] = more
                 res.send(this.jCrypt(animeTE));
+        });
+        app.get(`/filme/:filme`, async (req, res) => {
+            const filmeT = req.params.filme.replace(/\n/g,' ')
+            const filme = new Movie({
+                API_ANIME,
+                Site
+            });
+            let filmeTE = await filme.getFilmeUnico(filmeT);
+            const more = await filme.getMoreMovie(filmeTE.nome)
+            filmeTE[`more`] = more
+            res.send(this.jCrypt(filmeTE));
+    });
+        app.get(`/movie/:genero/:page`, async (req, res) => {
+            const genero = req.params.genero
+            const page = req.params.page
+            const filme = new Movie({
+                API_ANIME,
+                Site
+            });
+            let filmeTE = await filme.getMovie(genero, page);
+            res.send(this.jCrypt(filmeTE));
+        });
+
+        app.get(`/play/:link`, async (req, res) => {
+            const link = req.params.link
+            const filme = new Movie({
+                API_ANIME,
+                Site
+            });
+            let filmeTE = await filme.getVideo(link);
+            res.send(this.jCrypt(filmeTE));
         });
 
         app.get(`/genero/:genero/:page`, async (req, res) => {
