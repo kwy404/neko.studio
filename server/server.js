@@ -58,6 +58,7 @@ class Server {
                 animeTE[`more`] = more
                 res.send(this.jCrypt(animeTE));
         });
+
         app.get(`/filme/:filme`, async (req, res) => {
             const filmeT = req.params.filme.replace(/\n/g,' ')
             const filme = new Movie({
@@ -68,7 +69,8 @@ class Server {
             const more = await filme.getMoreMovie(filmeTE.nome)
             filmeTE[`more`] = more
             res.send(this.jCrypt(filmeTE));
-    });
+        });
+
         app.get(`/movie/:genero/:page`, async (req, res) => {
             const genero = req.params.genero
             const page = req.params.page
@@ -77,6 +79,16 @@ class Server {
                 Site
             });
             let filmeTE = await filme.getMovie(genero, page);
+            res.send(this.jCrypt(filmeTE));
+        });
+
+        app.get(`/searchMovie/:search`, async (req, res) => {
+            const search = req.params.search
+            const filme = new Movie({
+                API_ANIME,
+                Site
+            });
+            let filmeTE = await filme.searchMovie(search);
             res.send(this.jCrypt(filmeTE));
         });
 
