@@ -78,7 +78,6 @@ const Destaque = (props) => {
                                     const anime = await axios.get(`http://localhost:5000/anime/saihate-no-paladin/`)
                                     const dataT = await anime.data
                                     const dataCry = dataT
-                                    console.log(dataT)
                                      props.verMais({dataCry, nome: `Saihate no Paladin`, photo: ``})
                                 }} 
                                 className="billboard-links button-layer forward-leaning">

@@ -14,18 +14,14 @@ const Home = () => {
     const [playing, setPlaying] = useState({})
     const [loadPlayer, setLoadPlayer] = useState(false)
     const [animes, setAnimes] = useState([])
-    const [filmes, setFilmes] = useState([])
     return <>
         <Header
         setAnimes={setAnimes}
-        setFilmes={setFilmes}
         />
         <SearchResult
         setPreviewAnime={setPreviewAnime}
         animeP={animePreview}
         animes={animes}
-        filmes={filmes}
-
         />
         { animes.length == 0 && 
         <>
@@ -71,27 +67,13 @@ const Home = () => {
             url={`genero/drama/1`}
             title={`Animes de Drama`}
             ></Carrousel>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`movie/todos/1`}
-            title={`Filmes`}
-            movie={true}
-            ></Carrousel>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`movie/suspense/1`}
-            title={`Filmes de Suspense`}
-            movie={true}
-            ></Carrousel>
         </div>
         </>
         }
         { animePreview.nome &&
             <PreviewModal 
             animePreview={setPreviewAnime}
-            setVerMais={setVerMais}
+            verMais={setVerMais}
             anime={animePreview}></PreviewModal>
         }
         { verMais.nome &&
@@ -116,7 +98,6 @@ const Home = () => {
         player={playing}></Player> }
         
         <Splash/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
 }
 

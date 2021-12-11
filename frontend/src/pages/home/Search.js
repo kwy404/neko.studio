@@ -64,13 +64,6 @@ const SearchResult = (props) => {
                       animeP={props.animePreview}
                       title={`Resultados para ${document.querySelector(`#searchInput`).value}`}
                     />
-                    <CarrouselSearch
-                      animes={props.filmes}
-                      animePreview={props.setPreviewAnime}
-                      animeP={props.animePreview}
-                      movie={true}
-                      title={`Resultados para ${document.querySelector(`#searchInput`).value}`}
-                    />
                     </div>
                   </div>
                 </div>
