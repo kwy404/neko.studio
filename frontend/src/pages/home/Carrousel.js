@@ -61,7 +61,11 @@ const Carrousel = (props) => {
                    setPreviewAnime={props.animePreview}
                    index={index}
                    animeP={props.animeP}
-                   anime={anime} />
+                   anime={anime}
+                   setLoadPlayer={props.setLoadPlayer}
+                   setPlaying={props.setPlaying}
+
+                   />
                 ))}
                 { 
                 animesRecentes.length == 0 &&
@@ -141,6 +145,21 @@ const ItemSlide = (props) => {
     }
 }
 
+const showEpisode = async() =>{
+  props.setLoadPlayer(true)
+  let link = props.anime.link
+  link = link.replace(/[ÀÁÂÃÄÅ]/g,"A");
+  link = link.replace(/[àáâãäå]/g,"a");
+  link = link.replace(/[ÈÉÊË]/g,"E");
+  link = link.replace(/[ū]/g,"u");
+  const response = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
+  const episode = response.data.temporadas[0].episodes[0]
+  const anime = response.data
+  const data = {...anime, episode }
+  props.setPlaying(data)
+
+}
+
   return <div
   className="slider-item slider-item-0"
   style={{
@@ -156,6 +175,7 @@ const ItemSlide = (props) => {
             <img 
             ref={boxRef}
             onMouseEnter={handleMouseEnter}
+            onClick={showEpisode}
 
             className="boxart-image boxart-image-in-padded-container" src={props.anime.imagem} alt="" />
             <div className="fallback-text-container" aria-hidden="true">
