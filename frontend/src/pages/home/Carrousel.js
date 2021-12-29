@@ -95,24 +95,25 @@ const Carrousel = (props) => {
                   setPositionSlider(0)
                 }
               }
-                
+
             }}
             className="handle handleNext active" tabIndex={0} role="button" aria-label="Ver mais títulos"><b className="indicator-icon icon-rightCaret" /></span>
             }
-            
+
           </div>
         </div>
       </div>
     </div>
-  
+
   </div>
 }
+
 const ItemSlide = (props) => {
   const boxRef = useRef(null);
   const forceUpdate = useForceUpdate()
   function useForceUpdate() {
     const [, forceUpdate] = React.useState();
-  
+
     return React.useCallback(() => {
       forceUpdate(s => !s);
     }, []);
