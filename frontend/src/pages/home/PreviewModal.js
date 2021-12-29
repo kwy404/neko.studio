@@ -4,15 +4,12 @@ import axios from 'axios';
 const PreviewModal = (props) => {
     const [scale, setSale] = useState(1);
     const [previewEp, setPreviewEp] = useState(null)
-    const [scriptPreview, setScriptPreview] = useState(``)
     const [set, setV] = useState(false)
     const getVideo = async () => {
       setV(true)
       if(!previewEp && props.anime.dataCry && props.anime.dataCry.temporadas){
-        if(!props.anime.movie){
-          const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
-          setPreviewEp(data.data.url)
-        }
+        const data = await axios.get(`http://localhost:5000/`+props.anime.dataCry.temporadas[0].episodes[0].href)
+        setPreviewEp(data.data.url)
       }
     }
     if(!set){
@@ -73,9 +70,8 @@ const PreviewModal = (props) => {
                   className="previewModal--boxart"
                   onLoad={(e)=>{e.target.onLoad = null; e.target.play()}}
                   playsinline autoPlay loop
-                  muted
-                  src={props.anime.movie ? `https://${window['linkVideoMP4']}&stream=1` : previewEp}/>
-                  { !previewEp || window['linkVideoMP4'] && <img
+                  src={previewEp}/>
+                  { !previewEp && <img
                     className="previewModal--boxart"
                     src={`https://image.tmdb.org/t/p/original/${props.anime.dataCry.more.backdrop_path}`}
                     alt={props.anime.nome}
@@ -232,7 +228,8 @@ const PreviewModal = (props) => {
                             onClick={() => {
                               var oldAnime = props.anime
                               oldAnime[`video`] = previewEp
-                              props.setVerMais(props.anime)
+                              props.verMais(props.anime)
+                              console.log(props.anime)
                             }} 
                           >
                             <div className="ltr-1ksxkn9">
