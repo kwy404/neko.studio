@@ -143,7 +143,6 @@ const ItemSlide = (props) => {
     }
 }
 
-
   return <div
   className="slider-item slider-item-0"
   style={{
