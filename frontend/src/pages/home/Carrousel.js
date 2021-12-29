@@ -61,9 +61,7 @@ const Carrousel = (props) => {
                    setPreviewAnime={props.animePreview}
                    index={index}
                    animeP={props.animeP}
-                   anime={anime} 
-                   movie={props.movie || false}
-                   />
+                   anime={anime} />
                 ))}
                 { 
                 animesRecentes.length == 0 &&
@@ -158,6 +156,7 @@ const ItemSlide = (props) => {
             <img 
             ref={boxRef}
             onMouseEnter={handleMouseEnter}
+
             className="boxart-image boxart-image-in-padded-container" src={props.anime.imagem} alt="" />
             <div className="fallback-text-container" aria-hidden="true">
               <p className="fallback-text">{props.anime.nome}</p>
