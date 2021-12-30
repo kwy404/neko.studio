@@ -15,36 +15,27 @@ const Home = () => {
     const [loadPlayer, setLoadPlayer] = useState(false)
     const [animes, setAnimes] = useState([])
 
-    const carrousels = [{
-        animePreview:setPreviewAnime,
-        animeP:animePreview,
+    const carrousels = [
+    {
         url:`anime`,
         title:`Animes recentes`,
-
-    },{
-        animePreview:setPreviewAnime,
-        animeP:animePreview,
+    },
+    {
         url:`genero/acao/1`,
         title:`Animes de Ação`,
-
-    },{
-        animePreview:setPreviewAnime,
-        animeP:animePreview,
+    },
+    {
         url:`genero/artes-marciais/1`,
         title:`Animes de Artes Marciais`,
-
-    },{
-        animePreview:setPreviewAnime,
-        animeP:animePreview,
+    },
+    {
         url:`genero/comedia/1`,
         title:`Animes de Comédia`,
 
-    },{
-        animePreview:setPreviewAnime,
-        animeP:animePreview,
+    },
+    {
         url:`genero/drama/1`,
         title:`Animes de Drama`,
-
     }]
     return <>
         <Header
@@ -69,7 +60,7 @@ const Home = () => {
         }}
         className="watch-video--loading-view" data-uia="watch-video-loading-view"><div className="player-loading"><div className="player-loading-background-image player-loading-background-image-loading" /><div className="gradient" /><div><div className="loading-children-container"><div className="nf-loading-spinner" /><div className="nfp-control-row top-right-controls"></div></div></div></div></div> }
         <div>
-            {carrousels.map((props)=><Carrousel {...props} ></Carrousel>)}
+            {carrousels.map((props)=><Carrousel {...props}  animePreview={setPreviewAnime} animeP={animePreview} ></Carrousel>)}
         </div>
         </>
         }
