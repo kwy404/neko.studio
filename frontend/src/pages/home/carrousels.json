@@ -1,0 +1,22 @@
+[
+  {
+    "url": "anime",
+    "title": "Animes recentes"
+  },
+  {
+    "url": "genero/acao/1",
+    "title": "Animes de Ação"
+  },
+  {
+    "url": "genero/artes-marciais/1",
+    "title": "Animes de Artes Marciais"
+  },
+  {
+    "url": "genero/comedia/1",
+    "title": "Animes de Comédia"
+  },
+  {
+    "url": "genero/drama/1",
+    "title": "Animes de Drama"
+  }
+]

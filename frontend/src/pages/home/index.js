@@ -1,12 +1,13 @@
 import Carrousel from './Carrousel';
 import PreviewModal from './PreviewModal';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import ModalStream from './modalStream';
 import Player from './player';
 import Destaque from './Destaque';
 import Splash from './Splash';
 import SearchResult from './Search';
 import Header from './Header';
+import carrousels from './carrousels.json';
 
 const Home = () => {
     const [animePreview, setPreviewAnime] = useState({nome: ``});
@@ -15,28 +16,6 @@ const Home = () => {
     const [loadPlayer, setLoadPlayer] = useState(false)
     const [animes, setAnimes] = useState([])
 
-    const carrousels = [
-    {
-        url:`anime`,
-        title:`Animes recentes`,
-    },
-    {
-        url:`genero/acao/1`,
-        title:`Animes de Ação`,
-    },
-    {
-        url:`genero/artes-marciais/1`,
-        title:`Animes de Artes Marciais`,
-    },
-    {
-        url:`genero/comedia/1`,
-        title:`Animes de Comédia`,
-
-    },
-    {
-        url:`genero/drama/1`,
-        title:`Animes de Drama`,
-    }]
     return <>
         <Header
         setAnimes={setAnimes}
