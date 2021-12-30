@@ -60,7 +60,7 @@ const Home = () => {
         }}
         className="watch-video--loading-view" data-uia="watch-video-loading-view"><div className="player-loading"><div className="player-loading-background-image player-loading-background-image-loading" /><div className="gradient" /><div><div className="loading-children-container"><div className="nf-loading-spinner" /><div className="nfp-control-row top-right-controls"></div></div></div></div></div> }
         <div>
-            {carrousels.map((props)=><Carrousel {...props}  animePreview={setPreviewAnime} animeP={animePreview} ></Carrousel>)}
+            {carrousels.map((props)=><Carrousel {...props}  animePreview={setPreviewAnime} animeP={animePreview} />)}
         </div>
         </>
         }
