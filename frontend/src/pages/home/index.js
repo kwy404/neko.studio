@@ -1,6 +1,6 @@
 import Carrousel from './Carrousel';
 import PreviewModal from './PreviewModal';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import ModalStream from './modalStream';
 import Player from './player';
 import Destaque from './Destaque';
