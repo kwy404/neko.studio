@@ -196,6 +196,16 @@ export default function ReactNetflixPlayer({
     setProgress(position);
   };
 
+  const goToPositionPlayerFake = position => {
+    if((position.x - 330) <= (window.innerWidth - 520)){
+      document.querySelector(`#previewContainer`).style.left =( position.x - 520)+`px`
+    }
+
+    document.querySelector(`#previewContainer`).currentTime = position.time
+    document.querySelector(`#previewContainer`).style.top = `30%`
+    document.querySelector(`#previewContainer`).style.display = `block` 
+  };
+
   const play = () => {
     setPlaying(!playing);
 
@@ -558,6 +568,22 @@ export default function ReactNetflixPlayer({
       >
         {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
       </video>
+      <video
+        style={{
+          position: `fixed`,
+          zIndex: `40000`,
+          width: `100%`,
+          height: `100%`,
+          transform: `scale(0.2)`,
+          display: `none`,
+          borderRadius: `20px`
+        }}
+        src={src}
+        controls={false}
+        id="previewContainer"
+      >
+        {/* <track label="English" kind="subtitles" srcLang="en" src={subtitleMedia} default /> */}
+      </video>
 
       <Controlls
         show={showControls === true && videoReady === true && error === false}
@@ -574,13 +600,23 @@ export default function ReactNetflixPlayer({
         )}
 
         {showControlVolume !== true && showQuality !== true && !showDataNext && !showReproductionList && (
-          <div className="line-reproduction">
+          <div 
+         
+          className="line-reproduction">
             <input
               type="range"
               value={progress}
               className="progress-bar"
               max={duration}
               onChange={e => goToPosition(e.target.value)}
+              onMouseMove={e => goToPositionPlayerFake({
+                'time': ( e.clientX - e.target.offsetLeft ) / e.target.clientWidth * parseFloat(e.target.getAttribute('max')),
+                'x': e.clientX,
+                'y': e.clientY,
+              })}
+              onMouseLeave={() => {
+                document.querySelector(`#previewContainer`).style.display = `none`
+              }}
               title=""
               style={
                 {
