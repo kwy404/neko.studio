@@ -7,6 +7,7 @@ import Destaque from './Destaque';
 import Splash from './Splash';
 import SearchResult from './Search';
 import Header from './Header';
+import carrousels from './carrousels.json';
 
 const Home = () => {
     const [animePreview, setPreviewAnime] = useState({nome: ``});
@@ -14,6 +15,7 @@ const Home = () => {
     const [playing, setPlaying] = useState({})
     const [loadPlayer, setLoadPlayer] = useState(false)
     const [animes, setAnimes] = useState([])
+
     return <>
         <Header
         setAnimes={setAnimes}
@@ -37,36 +39,7 @@ const Home = () => {
         }}
         className="watch-video--loading-view" data-uia="watch-video-loading-view"><div className="player-loading"><div className="player-loading-background-image player-loading-background-image-loading" /><div className="gradient" /><div><div className="loading-children-container"><div className="nf-loading-spinner" /><div className="nfp-control-row top-right-controls"></div></div></div></div></div> }
         <div>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`anime`}
-            title={`Animes recentes`}
-            ></Carrousel>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`genero/acao/1`}
-            title={`Animes de Ação`}
-            ></Carrousel>
-             <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`genero/artes-marciais/1`}
-            title={`Animes de Artes Marciais`}
-            ></Carrousel>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`genero/comedia/1`}
-            title={`Animes de Comédia`}
-            ></Carrousel>
-            <Carrousel
-            animePreview={setPreviewAnime}
-            animeP={animePreview}
-            url={`genero/drama/1`}
-            title={`Animes de Drama`}
-            ></Carrousel>
+            {carrousels.map((props, index)=><Carrousel {...props} key = {props.url}  animePreview={setPreviewAnime} animeP={animePreview} />)}
         </div>
         </>
         }
