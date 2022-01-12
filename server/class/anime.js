@@ -1,7 +1,9 @@
 import cheerio from 'cheerio';
 import axios from 'axios';
 import bCrypt from 'json-encrypt';
-import PopCorn from 'popcorn-api';
+import axiosCloudflare from 'axios-cloudflare';
+ 
+axiosCloudflare(axios);
 
 class Anime {
     constructor(Anime){

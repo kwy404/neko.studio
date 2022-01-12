@@ -43,7 +43,7 @@ class Server {
                 const animesRecentes = await anime.getAnimesRecentes();
                 res.send(this.jCrypt(animesRecentes));
             } catch (error) {
-                res.send({error: true})
+                res.send({error: error})
             }
         });
         app.get(`/anime/:anime`, async (req, res) => {

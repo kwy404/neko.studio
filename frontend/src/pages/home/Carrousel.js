@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, {useState, useRef} from 'react';
-import bCrypt from 'json-encrypt';
 
 const Carrousel = (props) => {
     const [animesRecentes, setAnimesRecentes] = useState([]);
@@ -108,6 +107,7 @@ const Carrousel = (props) => {
 const ItemSlide = (props) => {
   const boxRef = useRef(null);
   const forceUpdate = useForceUpdate()
+  var timer = null
   function useForceUpdate() {
     const [, forceUpdate] = React.useState();
   
@@ -120,26 +120,28 @@ const ItemSlide = (props) => {
     }, [forceUpdate])
 
   const handleMouseEnter = async () => {
-    const posX = props.positionSlider == 0 ? (props.index * document.querySelector('.title-card').offsetWidth) : (((props.index * document.querySelector('.title-card').offsetWidth) - (window.window.innerWidth) * props.positionSlider + 1) - (135 * props.positionSlider))
-    const posY = boxRef.current.y - 285
-    let link = props.anime.link
-    link = link.replace(/[ÀÁÂÃÄÅ]/g,"A");
-    link = link.replace(/[àáâãäå]/g,"a");
-    link = link.replace(/[ÈÉÊË]/g,"E");
-    link = link.replace(/[ū]/g,"u");
-    if(!props.movie){
-      const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
-      const data = await anime.data
-      const dataCry = data
-      props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
-    } else{
-      const anime = await axios.get(`http://localhost:5000/filme/${link.replace(` `, `_`)}`)
-      const data = await anime.data
-      const linker = props.anime.link
-      const dataCry = data
-      props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, movie: `true`, linker})
-    }
-}
+      timer = setTimeout(async () => {
+        const posX = props.positionSlider == 0 ? (props.index * document.querySelector('.title-card').offsetWidth) : (((props.index * document.querySelector('.title-card').offsetWidth) - (window.window.innerWidth) * props.positionSlider + 1) - (135 * props.positionSlider))
+        const posY = boxRef.current.y - 285
+        let link = props.anime.link
+        link = link.replace(/[ÀÁÂÃÄÅ]/g,"A");
+        link = link.replace(/[àáâãäå]/g,"a");
+        link = link.replace(/[ÈÉÊË]/g,"E");
+        link = link.replace(/[ū]/g,"u");
+        if(!props.movie){
+          const anime = await axios.get(`http://localhost:5000/${link.replace(` `, `_`)}`)
+          const data = await anime.data
+          const dataCry = data
+          props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
+        } else{
+          const anime = await axios.get(`http://localhost:5000/filme/${link.replace(` `, `_`)}`)
+          const data = await anime.data
+          const linker = props.anime.link
+          const dataCry = data
+          props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem, movie: `true`, linker})
+        }
+      }, 500);
+  }
 
   return <div
   className="slider-item slider-item-0"
@@ -156,6 +158,9 @@ const ItemSlide = (props) => {
             <img 
             ref={boxRef}
             onMouseEnter={handleMouseEnter}
+            onMouseLeave={() => {
+              window.clearTimeout(timer)
+            }}
 
             className="boxart-image boxart-image-in-padded-container" src={props.anime.imagem} alt="" />
             <div className="fallback-text-container" aria-hidden="true">

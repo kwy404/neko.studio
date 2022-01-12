@@ -92,6 +92,7 @@ const CarrouselSearch = (props) => {
 
 const ItemSlide = (props) => {
   const boxRef = useRef(null);
+  var timer = null;
   const forceUpdate = useForceUpdate()
   function useForceUpdate() {
     const [, forceUpdate] = React.useState();
@@ -119,7 +120,7 @@ const ItemSlide = (props) => {
             ref={boxRef}
             onMouseEnter={
               async e => {
-                if(true){
+                timer = setTimeout(async () => {
                   const posX = props.positionSlider == 0 ? (props.index * document.querySelector('.title-card').offsetWidth) : (((props.index * document.querySelector('.title-card').offsetWidth) - (window.window.innerWidth) * props.positionSlider + 1) - (135 * props.positionSlider))
                   const posY = boxRef.current.y - 285
                   let link = props.anime.link
@@ -134,9 +135,14 @@ const ItemSlide = (props) => {
                   const dataCry = data
                   console.log(data)
                   props.setPreviewAnime({posX, posY, dataCry, nome: props.anime.nome, photo: props.anime.imagem})
-                }
+                
+                }, 500);
               }
             }
+            onMouseLeave={() => {
+              window.clearTimeout(timer)
+            }}
+
             className="boxart-image boxart-image-in-padded-container" src={props.anime.imagem} alt="" />
             <div className="fallback-text-container" aria-hidden="true">
               <p className="fallback-text">{props.anime.nome}</p>
